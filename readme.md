@@ -27,6 +27,4 @@ The plugin freezes the CT, not allowing them to rush mindlessly.
 
 ### In `addons/amxmodx/configs/plugins/plugin-simple_anti_rush.cfg` file:
 
-```Pawn
-anti_rush_time - Anti rush (freeze) time for CT
-```
+`anti_rush_time` - Anti rush (freeze) time for CT
