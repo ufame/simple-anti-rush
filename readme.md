@@ -1,6 +1,13 @@
 # Simple Anti Rush
 
+<p align="center" width="100%">
+  <img src="https://dev-cs.ru/data/resource_icons/1/1595.jpg?1685145487">
+</p>
+
 The plugin freezes the CT, not allowing them to rush mindlessly.
+
+## Acknowledgements
+[Ayk](https://dev-cs.ru/members/1839/) - [Idea](https://dev-cs.ru/threads/2400/page-33#post-135025)
 
 ## Features
 
