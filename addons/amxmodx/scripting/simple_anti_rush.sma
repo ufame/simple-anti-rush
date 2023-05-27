@@ -16,24 +16,14 @@ public plugin_init() {
   bind_pcvar_num(create_cvar("anti_rush_time", "3", _, "Anti rush (freeze) time for CT"), g_antiRushTime)
   AutoExecConfig()
 
-  RegisterHookChain(RG_CBasePlayer_Spawn, "cbasePlayerSpawn_Post", true)
   RegisterHookChain(RG_CBasePlayer_ResetMaxSpeed, "cbasePlayerResetMaxSpeed_Post", true)
   RegisterHookChain(RG_CSGameRules_OnRoundFreezeEnd, "gameRulesFreezeEnd_Post", true)
-}
-
-//reconnect?
-public cbasePlayerSpawn_Post(id) {
-  if (!is_user_alive(id) || get_member(id, m_iTeam) != TEAM_CT)
-    return
-
-  if (isFreezeTime())
-    userFreeze(id)
 }
 
 public cbasePlayerResetMaxSpeed_Post(id) {
   if (!isFreezeTime() || get_member(id, m_iTeam) != TEAM_CT)
     return
-  
+
   set_entvar(id, var_maxspeed, 1.0)
 }
 
