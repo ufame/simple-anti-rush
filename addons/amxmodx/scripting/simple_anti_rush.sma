@@ -7,7 +7,7 @@ new g_antiRushTime
 new Float: g_freezeTime
 
 public plugin_init() {
-  register_plugin("Simple anti rush", "1.0.1", "ufame")
+  register_plugin("Simple anti rush", "1.0.2", "ufame")
 
   register_dictionary("simple_anti_rush.txt")
 
@@ -34,7 +34,7 @@ public gameRulesFreezeEnd_Post() {
   for (new id = 1; id <= MaxClients; id++) {
     if (!is_user_alive(id) || get_member(id, m_iTeam) != TEAM_CT)
       continue
-    
+
     userFreeze(id)
   }
 
