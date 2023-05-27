@@ -7,7 +7,7 @@ new g_antiRushTime
 new Float: g_freezeTime
 
 public plugin_init() {
-  register_plugin("Simple anti rush", "1.0.0", "ufame")
+  register_plugin("Simple anti rush", "1.0.1", "ufame")
 
   register_dictionary("simple_anti_rush.txt")
 
@@ -17,6 +17,7 @@ public plugin_init() {
   AutoExecConfig()
 
   RegisterHookChain(RG_CBasePlayer_Spawn, "cbasePlayerSpawn_Post", true)
+  RegisterHookChain(RG_CBasePlayer_ResetMaxSpeed, "cbasePlayerResetMaxSpeed_Post", true)
   RegisterHookChain(RG_CSGameRules_OnRoundFreezeEnd, "gameRulesFreezeEnd_Post", true)
 }
 
@@ -25,8 +26,15 @@ public cbasePlayerSpawn_Post(id) {
   if (!is_user_alive(id) || get_member(id, m_iTeam) != TEAM_CT)
     return
 
-  if ((g_freezeTime + float(g_antiRushTime)) > get_gametime())
+  if (isFreezeTime())
     userFreeze(id)
+}
+
+public cbasePlayerResetMaxSpeed_Post(id) {
+  if (!isFreezeTime() || get_member(id, m_iTeam) != TEAM_CT)
+    return
+  
+  set_entvar(id, var_maxspeed, 1.0)
 }
 
 public gameRulesFreezeEnd_Post() {
@@ -59,7 +67,7 @@ public taskUnfreezeAll() {
 }
 
 userFreeze(const id) {
-  set_entvar(id, var_maxspeed, 0.001)
+  set_entvar(id, var_maxspeed, 1.0)
   set_member(id, m_bIsDefusing, true)
 }
 
@@ -72,4 +80,8 @@ sendTimer(time) {
   message_begin(MSG_ALL, g_msgRoundTime)
   write_short(time)
   message_end()
+}
+
+bool: isFreezeTime() {
+  return bool: ((g_freezeTime + float(g_antiRushTime)) > get_gametime())
 }
